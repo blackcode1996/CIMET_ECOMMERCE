@@ -1,0 +1,62 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "../pages/Home";
+import Wrapper from "../pages/Wrapper";
+import Products from "../pages/Products";
+import Singleproduct from "../pages/Singleproduct";
+import Blog from "../pages/Blog";
+import Singleblog from "../pages/Singleblog";
+import Cart from "../pages/Cart";
+import Profile from "../pages/Profile";
+import Authentication from "../pages/Authentication";
+import PrivateRoute from "../pages/PrivateRoute";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Wrapper />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/products",
+        element: <Products />,
+        children: [
+          {
+            index: true,
+            path: ":id",
+            element: <Singleproduct />,
+          },
+        ],
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
+        children: [
+          {
+            index: true,
+            path: ":id",
+            element: <Singleblog />,
+          },
+        ],
+      },
+      {
+        path: "/cart",
+        element: <PrivateRoute><Cart /></PrivateRoute> ,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/login",
+        element: <Authentication />,
+      },
+    ],
+  },
+]);
+
+export const AllRoutes= ()=>{
+    return <RouterProvider router={router}></RouterProvider>
+}
