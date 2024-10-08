@@ -5,11 +5,11 @@ import Footer from '../components/Footer'
 
 const Wrapper = () => {
   return (
-    <div>
+    <>
       <Navbar/>
       <Outlet/>
       <Footer/>
-    </div>
+    </>
   )
 }
 
