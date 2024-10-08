@@ -10,8 +10,7 @@ export default {
       current: 'currentColor',
       primary:"#020617",
       secondary:"#dc2626",
-      neutral:"#f5f5f5"
-
+      neutral:"#f5f5f5",
     },
     extend: {
     },
