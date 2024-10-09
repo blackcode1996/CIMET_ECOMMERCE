@@ -2,12 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchBlog = createAsyncThunk(
-    'content/fetchContent',
+    'blog/fetchBlog',
     async () => {
-      const res = await axios('https://jsonplaceholder.typicode.com/photos')
+      const res = await axios('https://jsonplaceholder.typicode.com/posts')
       const data = await res.data
-      console.log(data,"data");
       return data
+    }
+  )
+  export const fetchSingleBlog=createAsyncThunk(
+    'blog/fetchSingleBlog',
+    async(postId)=>{
+      
+      const res=await axios(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      const data=await res.data
+      return data
+      console.log(data,"singleblogdata");
+      
+      
     }
   )
 
@@ -15,6 +26,7 @@ const blogSlice=createSlice({
     name:"blog",
     initialState:{
         blogItems: [],
+        singleBlogItem:{},
         selectedItem: null,
         loading: false,
         error: null,
@@ -25,9 +37,20 @@ const blogSlice=createSlice({
         })
         builder.addCase(fetchBlog.fulfilled, (state, action) => {
           state.loading = false
-          state.contents = action.payload
+          state.blogItems = action.payload
         })
         builder.addCase(fetchBlog.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.error.message
+        })
+        builder.addCase(fetchSingleBlog.pending, (state) => {
+          state.loading = true
+        })
+        builder.addCase(fetchSingleBlog.fulfilled, (state, action) => {
+          state.loading = false
+          state.singleBlogItem = action.payload
+        })
+        builder.addCase(fetchSingleBlog.rejected, (state, action) => {
           state.loading = false
           state.error = action.error.message
         })
@@ -37,6 +60,9 @@ const blogSlice=createSlice({
 
 export const blogData=(state)=>{
     return state.blog.blogItems
+}
+export const singleBlogData=(state)=>{
+  return state.blog.singleBlogItem
 }
 
 export default blogSlice.reducer

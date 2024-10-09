@@ -1,10 +1,10 @@
-import { trimText } from "../utils/common";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({
   productId,
   productImage,
   productPrice,
+  productDiscountPercent,
   productTitle,
   productRating,
   productActualPrice,
@@ -12,7 +12,7 @@ const ProductCard = ({
   const fullStars = Math.floor(productRating);
   const hasHalfStar = productRating % 1 >= 0.5;
   const totalStars = 5;
-  const quantity=0;
+  const quantity = 0;
 
   const starColor =
     productRating >= 4.5
@@ -24,34 +24,37 @@ const ProductCard = ({
       : "text-red-500";
 
   return (
-    <div className="m-8 flex w-full max-w-xs flex-col rounded-lg border border-gray-100 bg-neutral shadow-md">
-      <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
-        <img className="object-cover w-full" src={productImage} alt="product image" />
-        <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-          {(
-            ((productActualPrice - productPrice) / productActualPrice) *
-            100
-          ).toFixed(1)}
-          %
-        </span>
-      </div>
+    <div className="m-4 flex w-full max-w-xs sm:max-w-sm md:max-w-md flex-col rounded-lg border border-gray-100 bg-neutral shadow-md">
+      <Link to={`/products/${productId}`}>
+        <div className="relative mx-3 mt-3 flex h-72 overflow-hidden rounded-xl">
+          <img
+            className="object-cover w-full"
+            src={productImage}
+            alt="product image"
+          />
+          <span className="absolute top-0 left-0 m-2 rounded-full bg-primary px-2 text-center text-sm font-medium text-neutral">
+            {productDiscountPercent}%
+          </span>
+        </div>
+      </Link>
+
       <div className="mt-4 px-5 pb-5">
         <Link to={`/products/${productId}`}>
-          <h5 className="text-xl tracking-tight text-slate-900 hover:text-cyan-600">
-            {trimText(productTitle)}
+          <h5 className="text-xl tracking-tight text-primary hover:text-cyan-600">
+            {productTitle}
           </h5>
         </Link>
         <div className="mt-2 mb-5 flex items-center justify-between">
           <p>
-            <span className="text-3xl font-bold text-slate-900">
-              ${productPrice.toFixed(1)}
+            <span className="text-3xl p-2 font-bold text-primary">
+              ${productPrice}
             </span>
-            <span className="text-sm text-slate-900 line-through">
+            <span className="text-sm text-primary line-through">
               ${productActualPrice}
             </span>
           </p>
           <div className="flex items-center">
-            {Array.from({ length: fullStars }).map((_, index) => (
+            {Array.from({ length: fullStars }).map((index) => (
               <svg
                 key={index}
                 aria-hidden="true"
@@ -76,12 +79,12 @@ const ProductCard = ({
             )}
             {Array.from({
               length: totalStars - fullStars - (hasHalfStar ? 1 : 0),
-            }).map((_, index) => (
+            }).map((index) => (
               <svg
                 key={index}
                 aria-hidden="true"
-                className="h-5 w-5 text-gray-300"
-                fill="currentColor"
+                className="h-5 w-5"
+                fill="#d1d5db"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -95,7 +98,7 @@ const ProductCard = ({
         </div>
         {quantity === 0 ? (
           <button
-            className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 w-full"
+            className="flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-center text-sm font-medium text-neutral hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-secondary w-full"
             // onClick={handleCart}
           >
             <svg
@@ -117,8 +120,8 @@ const ProductCard = ({
         ) : (
           <div className="flex justify-center space-x-2 w-full">
             <button
-            //   onClick={decrementQuantity}
-              className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300 transition duration-200"
+              //   onClick={decrementQuantity}
+              className="flex items-center justify-center w-8 h-8 rounded-md bg-neutral text-primary hover:bg-gray-300 transition duration-200"
             >
               <i className="fa-solid fa-minus"></i>
             </button>
@@ -126,14 +129,14 @@ const ProductCard = ({
             <span className="mx-2 text-lg font-semibold">{quantity}</span>
 
             <button
-            //   onClick={incrementQuantity}
-              className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300 transition duration-200"
+              //   onClick={incrementQuantity}
+              className="flex items-center justify-center w-8 h-8 rounded-md bg-neutral text-primary hover:bg-gray-300 transition duration-200"
             >
               <i className="fa-solid fa-plus"></i>
             </button>
 
             <button
-            //   onClick={deleteProductFromCart}
+              //   onClick={deleteProductFromCart}
               className="flex items-center justify-center w-8 h-8 rounded-md bg-red-500 text-white hover:bg-red-600 transition duration-200"
             >
               <i className="fa-solid fa-trash"></i>
