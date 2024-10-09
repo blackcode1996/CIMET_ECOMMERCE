@@ -25,7 +25,7 @@ const blogSlice=createSlice({
         })
         builder.addCase(fetchBlog.fulfilled, (state, action) => {
           state.loading = false
-          state.contents = action.payload
+          state.blogItems = action.payload
         })
         builder.addCase(fetchBlog.rejected, (state, action) => {
           state.loading = false
