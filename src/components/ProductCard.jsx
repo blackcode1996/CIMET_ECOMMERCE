@@ -26,9 +26,9 @@ const ProductCard = ({
   return (
     <div className="m-4 flex w-full max-w-xs sm:max-w-sm md:max-w-md flex-col rounded-lg border border-gray-100 bg-neutral shadow-md">
       <Link to={`/products/${productId}`}>
-        <div className="relative mx-3 mt-3 flex h-72 overflow-hidden rounded-xl">
+        <div className="relative mx-3 mt-2 flex h-full overflow-hidden rounded-xl justify-center">
           <img
-            className="object-cover w-full"
+            className="object-cover w-[300px] h-[300px]"
             src={productImage}
             alt="product image"
           />
