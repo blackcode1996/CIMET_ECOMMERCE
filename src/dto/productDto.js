@@ -8,7 +8,7 @@ const productDto = (data, limit) => {
     productImage: item.image,
     productPrice: parseFloat(item.price).toFixed(1), 
     productDiscountPercent: 10,
-    productTitle: trimText(item.title),
+    productTitle: trimText(item.title,4),
     productRating: item.rating.rate,
     productActualPrice: parseFloat(item.price + (0.1 * item.price)).toFixed(1), 
   }));
