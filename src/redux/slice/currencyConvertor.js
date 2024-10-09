@@ -21,7 +21,7 @@ export const fetchCurrencyData=createAsyncThunk(
 const currencySlice=createSlice({
     name:"currencyConvertor",
     initialState:{
-    conversionRate:0,
+    conversionRate:1,
     loading:false,
     error:null
     },
