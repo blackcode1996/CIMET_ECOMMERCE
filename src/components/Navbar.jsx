@@ -61,7 +61,7 @@ const Navbar = () => {
               </option>
             </select>
           </div>
-          <Link to="/">
+          <Link to="/profile">
             <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled?'text-black':'text-white'}` }/>
           </Link>
         </nav>
