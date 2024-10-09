@@ -3,16 +3,24 @@ import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
+import UserProfileModal from "./UserProfilecomponent";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Mock authentication state
+  const [username, setUsername] = useState("John Doe"); // Example username for logged-in users
   const dispatch=useDispatch()
-
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  }
+
+  
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 0);
   };
@@ -68,9 +76,9 @@ const Navbar = () => {
               </option>
             </select>
           </div>
-          <Link to="/">
-            <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled?'text-black':'text-white'}` }/>
-          </Link>
+          <div onClick={toggleModal} className="cursor-pointer">
+            <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled ? 'text-black' : 'text-white'}`} />
+          </div>
         </nav>
       </header>
 
@@ -110,6 +118,15 @@ const Navbar = () => {
             </select>
           </div>
         </div>
+      )}
+
+
+{isModalOpen && (
+        <UserProfileModal
+          isLoggedIn={isLoggedIn} 
+          username={username} 
+          closeModal={() => setIsLoggedIn(false)} 
+        />
       )}
     </div>
   );
