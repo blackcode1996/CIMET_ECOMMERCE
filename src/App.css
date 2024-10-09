@@ -4,3 +4,11 @@
   box-sizing: border-box;
   font-family: 'Courier New', Courier, monospace;
 }
+.truncate-2-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; 
+  max-height: 3em;
+  line-height: 1.5em;
+}
