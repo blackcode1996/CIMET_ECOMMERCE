@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const dispatch=useDispatch()
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -13,6 +16,10 @@ const Navbar = () => {
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 0);
   };
+
+  const currencyConvertorHandler=(e)=>{
+    dispatch(fetchCurrencyData(e.target.value))
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -49,7 +56,7 @@ const Navbar = () => {
             <p className="hover:text-red-500">Contact Us</p>
           </div>
           <div>
-            <select className="bg-primary text-white hover:text-red-500 p-1">
+            <select className="bg-primary text-white hover:text-red-500 " onChange={currencyConvertorHandler}>
               <option value="USD" className="bg-primary">
                 USD
               </option>
@@ -90,7 +97,7 @@ const Navbar = () => {
           </div>
 
           <div>
-            <select className=" bg-primary text-base">
+            <select className=" bg-primary text-base" onChange={currencyConvertorHandler}>
               <option value="USD" className="bg-primary text-sm">
                 USD
               </option>
