@@ -1,5 +1,8 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import img1 from "../assests/img1.jpg";
+import img2 from "../assests/img2.jpg";
+import img3 from "../assests/img3.jpg";
 
 const responsive = {
   desktop: {
@@ -28,18 +31,12 @@ const CarouselCustom = () => {
         swipeable
         className="w-full"
       >
-        {[
-          "https://images.unsplash.com/photo-1549989476-69a92fa57c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=60",
-          "https://images.unsplash.com/photo-1549396535-c11d5c55b9df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          "https://images.unsplash.com/photo-1550133730-695473e544be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          "https://images.unsplash.com/photo-1550167164-1b67c2be3973?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          "https://images.unsplash.com/photo-1550338861-b7cfeaf8ffd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-        ].map((src, index) => (
+        {[img1,img2,img3].map((src, index) => (
           <div key={index} className="flex justify-center items-center">
             <img
               src={src}
               alt={`Slide ${index + 1}`}
-              className="w-full h-96 object-cover rounded-lg"
+              className="w-full h-[70vh] object-cover rounded-lg"
             />
           </div>
         ))}

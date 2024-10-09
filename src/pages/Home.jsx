@@ -6,6 +6,7 @@ import { FaShoppingBag } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, productData } from "../redux/slice/productSlice";
 import productDto from "../dto/productDto"; 
+import Heading from "../components/Heading";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -48,10 +49,7 @@ const Home = () => {
       </div>
 
       {/* Heading for Featured Products */}
-      <div className="text-center my-10">
-        <h2 className="text-2xl font-bold mb-2 text-neutral">Featured Products</h2>
-        <div className="h-2 bg-gradient-to-r from-primary to-red-500 rounded-full w-1/4 mx-auto"></div>
-      </div>
+      <Heading text={"Featured Products"}/>
 
     {/* Products Card for featured products */}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
