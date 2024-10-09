@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { blogData, fetchBlog } from '../redux/slice/blogSlice'
 import { Link, useLocation } from 'react-router-dom'
