@@ -31,6 +31,7 @@ const Blog = () => {
     console.log(location,"location");
     
   }, [location]);
+  
 useEffect(()=>{
    dispatch(fetchBlog())
 },[dispatch])
