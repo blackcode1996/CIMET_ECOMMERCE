@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { blogData, fetchBlog } from '../redux/slice/blogSlice'
 
 const Blog = () => {
-  const dispatch=useDispatch()
-  const blog=useSelector(blogData)
+  const dispatch = useDispatch()
+  const blog = useSelector(blogData)
 
-  console.log(blog,"blog")
-useEffect(()=>{
-   dispatch(fetchBlog())
-},[dispatch])
+  useEffect(() => {
+    dispatch(fetchBlog())
+  }, [dispatch])
 
 
   return (
     <div>
-      {blog.map((ele)=>(
+      {blog.map((ele) => (
         <div>{ele.id}</div>
       ))}
     </div>
