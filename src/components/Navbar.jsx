@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
 import UserProfileModal from "./UserProfileComponent";
+import { cartData } from "../redux/slice/cartSlice";
+import ToolTip from "./ToolTip";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock authentication state
-  const [username, setUsername] = useState("John Doe"); // Example username for logged-in users
-  const dispatch=useDispatch()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("John Doe");
+
+  const cart = useSelector(cartData);
+
+  const dispatch = useDispatch();
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
-  }
+  };
 
-  
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 550);
   };
 
-  const currencyConvertorHandler=(e)=>{
-    dispatch(fetchCurrencyData(e.target.value))
-  }
+  const currencyConvertorHandler = (e) => {
+    dispatch(fetchCurrencyData(e.target.value));
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -58,13 +62,27 @@ const Navbar = () => {
         </div>
         <nav className="hidden md:flex py-2 gap-5">
           <div className="flex gap-5">
-          <Link to="/products" className="hover:text-red-500">Product</Link>
-            <Link to="/blog?page=1" className="hover:text-red-500">Blog</Link>
-            <Link to="/cart" className="hover:text-red-500">Cart(0)</Link>
-            <p className="hover:text-red-500">Contact</p>
+            <Link to="/products" className="hover:text-red-500">
+              Product
+            </Link>
+            <Link to="/blog?page=1" className="hover:text-red-500">
+              Blog
+            </Link>
+
+              {cart.length > 0 ? (
+            <Link to="/cart" className="hover:text-red-500">
+                Cart({cart.length})
+            </Link>
+              ) : (
+                <ToolTip mainText={"Cart"} textTooBeShown={"Your Cart is Empty"} />
+              )}
+            <p className="hover:text-red-500">Contact Us</p>
           </div>
           <div>
-            <select className="bg-primary text-white hover:text-red-500 p-1 mt-[-1px]">
+            <select
+              className="bg-primary text-white hover:text-red-500 "
+              onChange={currencyConvertorHandler}
+            >
               <option value="USD" className="bg-primary">
                 USD
               </option>
@@ -76,9 +94,13 @@ const Navbar = () => {
               </option>
             </select>
           </div>
-          <Link to="/profile">
-            <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled?'text-black':'text-white'}` }/>
-          </Link>
+          <div onClick={toggleModal} className="cursor-pointer">
+            <FaRegUserCircle
+              className={`text-2xl hover:text-red-500 ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
+            />
+          </div>
         </nav>
       </header>
 
@@ -90,22 +112,41 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex flex-col">
-            <Link to="/products" className="py-2 hover:text-red-500" onClick={toggleMenu}>
+            <Link
+              to="/products"
+              className="py-2 hover:text-red-500"
+              onClick={toggleMenu}
+            >
               Product
             </Link>
-            <Link to="/blog?page=1" className="py-2 hover:text-red-500" onClick={toggleMenu}>
+            <Link
+              to="/blog?page=1"
+              className="py-2 hover:text-red-500"
+              onClick={toggleMenu}
+            >
               Blog
             </Link>
-            <Link to="/cart" className="py-2 hover:text-red-500" onClick={toggleMenu}>
+            <Link
+              to="/cart"
+              className="py-2 hover:text-red-500"
+              onClick={toggleMenu}
+            >
               Cart(0)
             </Link>
-            <Link to="/" className="py-2 hover:text-red-500" onClick={toggleMenu}>
-              Contact
+            <Link
+              to="/"
+              className="py-2 hover:text-red-500"
+              onClick={toggleMenu}
+            >
+              Contact Us
             </Link>
           </div>
 
           <div>
-            <select className=" bg-primary text-base" onChange={currencyConvertorHandler}>
+            <select
+              className=" bg-primary text-base"
+              onChange={currencyConvertorHandler}
+            >
               <option value="USD" className="bg-primary text-sm">
                 USD
               </option>
@@ -120,12 +161,11 @@ const Navbar = () => {
         </div>
       )}
 
-
-{isModalOpen && (
+      {isModalOpen && (
         <UserProfileModal
-          isLoggedIn={isLoggedIn} 
-          username={username} 
-          closeModal={() => setIsLoggedIn(false)} 
+          isLoggedIn={isLoggedIn}
+          username={username}
+          closeModal={() => setIsLoggedIn(false)}
         />
       )}
     </div>
