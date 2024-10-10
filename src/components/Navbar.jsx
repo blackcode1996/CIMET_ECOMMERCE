@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
-import UserProfileModal from "./UserProfilecomponent";
+import UserProfileModal from "./UserProfileComponent";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Mock authentication state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock authentication state
   const [username, setUsername] = useState("John Doe"); // Example username for logged-in users
   const dispatch=useDispatch()
   const toggleMenu = () => {
