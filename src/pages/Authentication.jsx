@@ -12,7 +12,7 @@ import SignUpForm from "../components/SignUpForm";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setAuth } from "../redux/slice/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const auth = getAuth(app);
@@ -21,7 +21,9 @@ const Authentication = () => {
 
   const [showLogIn, setShowLogIn] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
+  const from = location.state?.from?.pathname || '/profile';
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
@@ -55,8 +57,7 @@ const Authentication = () => {
             displayName: name,
           })
             .then(() => {
-              dispatch(setAuth());
-              localStorage.setItem('user', JSON.stringify({name,email}));
+              setVerifyAuth('signIn')
             })
             .catch((err) => {
               console.log("Error setting displayName:", err);
@@ -69,22 +70,18 @@ const Authentication = () => {
     } else {
       signInWithEmailAndPassword(auth, email, password)
         .then((value) => {
-          toast.success("Log In Successful");
+          toast.success("Log In Successful", value);
+          localStorage.setItem('token', JSON.stringify(value.user.accessToken))
           if (!value.user.displayName) {
             updateProfile(value.user, {
               displayName: name,
             })
-              .then(() => {
-                console.log("DisplayName set:", name);
-                dispatch(setAuth());
-                localStorage.setItem('user', JSON.stringify({name, email}));
-              })
               .catch((err) => {
                 console.log("Error setting displayName on login:", err);
               });
-          } else {
-            dispatch(setAuth());
           }
+          // navigate('/profile')
+          navigate(from, { replace: true })
         })
         .catch((err) => toast.error(err.message));
     }

@@ -1,13 +1,19 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isAuth } from "../redux/slice/authSlice";
 
 const PrivateRoute = ({ children }) => {
 
-   const auth = useSelector(isAuth)
+  //  const auth = localStorage.getItem('token') || null
+    
+  //  if(auth){
+  //   setIsAuthenticated(true)
+  //  }
+    
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('token') ? true : false);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(auth);
+  useEffect(()=>{
+      console.log(localStorage.getItem('token'))
+  }, [])
 
   return isAuthenticated ? children : <Navigate to="/auth" />;
 };

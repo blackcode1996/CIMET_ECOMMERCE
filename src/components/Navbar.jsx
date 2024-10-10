@@ -76,9 +76,9 @@ const Navbar = () => {
               </option>
             </select>
           </div>
-          <div onClick={toggleModal} className="cursor-pointer">
-            <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled ? 'text-black' : 'text-white'}`} />
-          </div>
+          <Link to="/profile">
+            <FaRegUserCircle className={`text-2xl hover:text-red-500 ${isScrolled?'text-black':'text-white'}` }/>
+          </Link>
         </nav>
       </header>
 
