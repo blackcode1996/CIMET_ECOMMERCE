@@ -4,7 +4,7 @@ export function validateEmail(email) {
     if (!email) {
         message = "inValid Email Address"
         error = true
-    } else if (!/^[A-Z0-9._%+-]+@[a-z]+\.[a-z]{2,4}$/i.test(email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[a-z]+\.[a-z]+\.[a-z]{2,4}$/i.test(email)) {
         message = "Invalid Email Address"
         error = true
     }

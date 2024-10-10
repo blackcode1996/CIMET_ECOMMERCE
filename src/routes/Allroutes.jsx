@@ -9,6 +9,7 @@ import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
 import Authentication from "../pages/Authentication";
 import PrivateRoute from "../pages/PrivateRoute";
+import UpdatePassword from "../components/UpdatePassword";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element:<PrivateRoute><Profile /> </PrivateRoute>,
+        children:[
+          {
+            index: true,
+            element:<PrivateRoute><Profile /> </PrivateRoute>,
+          },
+         { 
+          path:'updatePassword',
+          element: <UpdatePassword />
+         }
+
+        ]
       },
       {
         path: "/auth",

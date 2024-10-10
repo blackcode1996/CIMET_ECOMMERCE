@@ -56,7 +56,7 @@ return(
             <input
               type="text"
               name="name"
-              value={ values.name}
+              value={values.name}
               onChange={handleChange}
               onBlur={ handleBlur}
               className={`w-full p-1 sm:p-2 border ${
@@ -138,7 +138,8 @@ return(
          </form>
        )}
 
-  </Formik>)
+  </Formik>
+  )
 
 };
 

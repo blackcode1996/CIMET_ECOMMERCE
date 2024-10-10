@@ -1,13 +1,9 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isAuth } from "../redux/slice/authSlice";
+import token from "../utils/token";
 
 const PrivateRoute = ({ children }) => {
-
-   const auth = useSelector(isAuth)
-
-  const [isAuthenticated, setIsAuthenticated] = useState(auth);
+  const [isAuthenticated, setIsAuthenticated] = useState(token());
 
   return isAuthenticated ? children : <Navigate to="/auth" />;
 };
