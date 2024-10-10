@@ -6,6 +6,7 @@ import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
 import UserProfileModal from "./UserProfileComponent";
 import { cartData } from "../redux/slice/cartSlice";
 import ToolTip from "./ToolTip";
+import token from "../utils/token";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,10 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("John Doe");
+
+  const isAuth=token()
+  console.log(isAuth,"isAuth");
+  
 
   const cart = useSelector(cartData);
 
@@ -74,9 +79,9 @@ const Navbar = () => {
                 Cart({cart.length})
             </Link>
               ) : (
-                <ToolTip mainText={"Cart"} textTooBeShown={"Your Cart is Empty"} />
+                <ToolTip mainText={"Cart"} textTooBeShown={"Your Cart is Empty"} bgColor={isScrolled?"primary":"neutral"}/>
               )}
-            <p className="hover:text-red-500">Contact Us</p>
+            <p className="hover:text-red-500 cursor-pointer">Contact</p>
           </div>
           <div>
             <select
@@ -161,11 +166,11 @@ const Navbar = () => {
         </div>
       )}
 
-      {isModalOpen && (
+      {isModalOpen && ( 
         <UserProfileModal
-          isLoggedIn={isLoggedIn}
+          isLoggedIn={isAuth}
           username={username}
-          closeModal={() => setIsLoggedIn(false)}
+          closeModal={() => {setIsLoggedIn(false),setIsModalOpen(false)}}
         />
       )}
     </div>

@@ -126,7 +126,7 @@ const Cart = () => {
           <hr className="mb-2" />
           <div className="flex justify-between font-bold text-lg">
             <p>Total Amount</p>
-            <p>₹{Number(cartDat[1].totalAmount)-Number(cartDat[1].discountAmount)}</p>
+            <p>₹{(Number(cartDat[1].totalAmount)-Number(cartDat[1].discountAmount)).toFixed(1)}</p>
           </div>
           <hr className="mt-2 mb-2" />
           <p className="text-green-600 mt-2">

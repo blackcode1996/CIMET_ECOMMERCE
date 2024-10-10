@@ -2,15 +2,19 @@ import React from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart, updateCart } from '../redux/slice/cartSlice'
+import token from '../utils/token'
+import { toast } from "react-toastify"
 
 const AddtoCartButton = ({quantity,data}) => {
     const dispatch=useDispatch()
-
-    console.log(quantity,"quantity",data)
-
-
+    const isAuth=token()
+    
     const handleCart=()=>{
-        dispatch(addToCart(data))
+      if (!isAuth) {
+        toast.error("Please log in to add items to the cart!");
+      } else {
+        dispatch(addToCart(data));
+      }
       }
     const incrementQuantity=()=>{
         const updatedQuantity=quantity+1
