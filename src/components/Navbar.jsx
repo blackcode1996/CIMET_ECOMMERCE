@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { fetchCurrencyData } from "../redux/slice/currencyConvertor";
-import UserProfileModal from "./UserProfilecomponent";
+import UserProfileModal from "./UserProfileComponent";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Mock authentication state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock authentication state
   const [username, setUsername] = useState("John Doe"); // Example username for logged-in users
   const dispatch=useDispatch()
   const toggleMenu = () => {
@@ -22,7 +22,7 @@ const Navbar = () => {
 
   
   const handleScroll = () => {
-    setIsScrolled(window.scrollY > 0);
+    setIsScrolled(window.scrollY > 550);
   };
 
   const currencyConvertorHandler=(e)=>{
@@ -41,12 +41,12 @@ const Navbar = () => {
       className={`sticky top-0 z-10 ${
         isScrolled
           ? "backdrop-filter backdrop-blur-lg bg-opacity-30"
-          : "bg-black"
-      } px-10`}
+          : "bg-primary"
+      } px-10 text-[20px]`}
     >
       <header
         className={`px-4 py-4 ${
-          isScrolled ? "text-black" : "text-neutral"
+          isScrolled ? "text-primary" : "text-neutral"
         }  flex justify-between items-center `}
       >
         <h1>
@@ -61,10 +61,10 @@ const Navbar = () => {
           <Link to="/products" className="hover:text-red-500">Product</Link>
             <Link to="/blog?page=1" className="hover:text-red-500">Blog</Link>
             <Link to="/cart" className="hover:text-red-500">Cart(0)</Link>
-            <p className="hover:text-red-500">Contact Us</p>
+            <p className="hover:text-red-500">Contact</p>
           </div>
           <div>
-            <select className="bg-primary text-white hover:text-red-500 " onChange={currencyConvertorHandler}>
+            <select className="bg-primary text-white hover:text-red-500 p-1 mt-[-1px]">
               <option value="USD" className="bg-primary">
                 USD
               </option>
@@ -100,7 +100,7 @@ const Navbar = () => {
               Cart(0)
             </Link>
             <Link to="/" className="py-2 hover:text-red-500" onClick={toggleMenu}>
-              Contact Us
+              Contact
             </Link>
           </div>
 

@@ -2,15 +2,18 @@ import React, { useEffect } from "react";
 import mobileMockup from "../assests/mobile.png";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import ProductCardSkeleton from "../components/skeleton/ProductCardSkeleton"; 
 import { FaShoppingBag } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, productData } from "../redux/slice/productSlice";
-import productDto from "../dto/productDto"; 
+import { fetchProducts, productData, productLoading } from "../redux/slice/productSlice"; 
+import productDto from "../dto/productDto";
 import Heading from "../components/Heading";
 
 const Home = () => {
   const dispatch = useDispatch();
   const rawProducts = useSelector(productData);
+  const isLoading = useSelector(productLoading); 
+
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -19,9 +22,22 @@ const Home = () => {
   const products = productDto(rawProducts, 6);
 
   return (
-    <div className="overflow-hidden relative">
-      <div className="absolute w-[300%] h-[70%] bg-primary left-1/2 bottom-1/2 transform -translate-x-1/2 skew-y-[-15deg] rounded-full z-[-1]"></div>
+    <div className="overflow-hidden relative p-4">
+      {/* SVG Background */}
+      <div className="absolute inset-0 z-[-1]">
+        <svg
+          className="w-full h-[990px] animate-wave"
+          viewBox="0 0 500 200"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M 0,100 C 150,200 350,0 500,100 L 500,00 L 0,0"
+            fill="#020617"
+          ></path>
+        </svg>
+      </div>
 
+      {/* Main Content */}
       <div className="container mx-auto h-full flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:py-0 text-neutral">
         <div className="lg:w-1/2 mb-8 lg:mb-0 p-5">
           <h1 className="text-4xl lg:text-6xl font-bold mb-4">
@@ -49,22 +65,26 @@ const Home = () => {
       </div>
 
       {/* Heading for Featured Products */}
-      <Heading text={"Featured Products"}/>
+      <Heading text={"Featured Products"} textColor={"primary"} />
 
-    {/* Products Card for featured products */}
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
-        {products.map((product) => (
-          <ProductCard
-            key={product.productId}
-            productId={product.productId}
-            productImage={product.productImage}
-            productPrice={product.productPrice}
-            productDiscountPercent={product.productDiscountPercent}
-            productTitle={product.productTitle}
-            productRating={product.productRating}
-            productActualPrice={product.productActualPrice}
-          />
-        ))}
+      {/* Products Card for featured products */}
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))
+          : products.map((product) => (
+              <ProductCard
+                key={product.productId}
+                productId={product.productId}
+                productImage={product.productImage}
+                productPrice={product.productPrice}
+                productDiscountPercent={product.productDiscountPercent}
+                productTitle={product.productTitle}
+                productRating={product.productRating}
+                productActualPrice={product.productActualPrice}
+              />
+            ))}
       </div>
     </div>
   );
