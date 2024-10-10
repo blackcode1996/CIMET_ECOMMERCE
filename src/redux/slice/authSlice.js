@@ -16,10 +16,10 @@ const authSlice = createSlice({
         setAuth: function(state) { 
             state.isAuth = true;
           },
-        setUserData: function(state, action){
+        setUserData: function(state){
            state.userData
         },
-      logOut: function(state, action){
+      logOut: function(state){
         state.isAuth = false
         localStorage.removeItem('token')
       }

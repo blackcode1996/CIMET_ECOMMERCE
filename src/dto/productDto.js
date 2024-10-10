@@ -10,19 +10,19 @@ const productDto = (data, limit) => {
     return limitedData.map((item) => ({
       productId: item.id,
       productImage: item.image,
-      productPrice: parseFloat(item.price * conversionRate).toFixed(1),
+      productPrice: Number(parseFloat(item.price * conversionRate).toFixed(1)),
       productDiscountPercent: 10,
       productTitle: trimText(item.title, 4),
       productRating: item.rating.rate,
-      productActualPrice: parseFloat(
+      productActualPrice: Number(parseFloat(
         (item.price + 0.1 * item.price) * conversionRate
-      ).toFixed(1),
+      ).toFixed(1)),
     }));
   } else {
     return {
       productId: data.id,
       productImage: data.image,
-      productPrice: parseFloat(data.price * conversionRate).toFixed(1),
+      productPrice: Number(parseFloat(data.price * conversionRate).toFixed(1)),
       productDiscountPercent: 10,
       productTitle: data.title,
       productDescription: data.description,
