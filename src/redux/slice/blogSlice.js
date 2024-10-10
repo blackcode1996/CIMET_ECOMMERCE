@@ -16,7 +16,6 @@ export const fetchBlog = createAsyncThunk(
       const res=await axios(`https://jsonplaceholder.typicode.com/posts/${postId}`)
       const data=await res.data
       return data
-      console.log(data,"singleblogdata");
       
       
     }

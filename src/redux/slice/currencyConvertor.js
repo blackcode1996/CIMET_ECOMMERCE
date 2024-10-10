@@ -10,7 +10,6 @@ export const fetchCurrencyData=createAsyncThunk(
         for(let j in conversionRateObj){
             if(j===currency){
                 const conversionRate = conversionRateObj[j];
-                console.log(conversionRate,"conversionRate")
                 return conversionRate
             
             }

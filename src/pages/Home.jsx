@@ -2,15 +2,18 @@ import React, { useEffect } from "react";
 import mobileMockup from "../assests/mobile.png";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import ProductCardSkeleton from "../components/skeleton/ProductCardSkeleton"; 
 import { FaShoppingBag } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, productData } from "../redux/slice/productSlice";
+import { fetchProducts, productData, productLoading } from "../redux/slice/productSlice"; 
 import productDto from "../dto/productDto";
 import Heading from "../components/Heading";
 
 const Home = () => {
   const dispatch = useDispatch();
   const rawProducts = useSelector(productData);
+  const isLoading = useSelector(productLoading); 
+
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -66,18 +69,22 @@ const Home = () => {
 
       {/* Products Card for featured products */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
-        {products.map((product) => (
-          <ProductCard
-            key={product.productId}
-            productId={product.productId}
-            productImage={product.productImage}
-            productPrice={product.productPrice}
-            productDiscountPercent={product.productDiscountPercent}
-            productTitle={product.productTitle}
-            productRating={product.productRating}
-            productActualPrice={product.productActualPrice}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))
+          : products.map((product) => (
+              <ProductCard
+                key={product.productId}
+                productId={product.productId}
+                productImage={product.productImage}
+                productPrice={product.productPrice}
+                productDiscountPercent={product.productDiscountPercent}
+                productTitle={product.productTitle}
+                productRating={product.productRating}
+                productActualPrice={product.productActualPrice}
+              />
+            ))}
       </div>
     </div>
   );

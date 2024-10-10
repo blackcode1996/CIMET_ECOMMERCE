@@ -10,10 +10,21 @@ export const fetchProducts=createAsyncThunk(
     }
 )
 
+export const fetchSingleProduct=createAsyncThunk(
+    'content/fetchSingleProduct',
+    async (productId)=>{
+        const res = await axios (`https://fakestoreapi.com/products/${productId}`);
+        const data = await res.data
+        return data
+    }
+)
+
+
 const productSlice=createSlice({
     name:"products",
     initialState:{
         productItems: [],
+        singleProductItem:{},
         selectedItem: null,
         loading: false,
         error: null,
@@ -24,12 +35,25 @@ const productSlice=createSlice({
             state.loading =  true
         })
         builder.addCase(fetchProducts.fulfilled,(state,action)=>{
-            state.loading =  true
+            state.loading =  false
             state.productItems = action.payload
         })
         builder.addCase(fetchProducts.rejected,(state,action)=>{
-            state.loading =  true
+            state.loading =  false
             state.productItems = action.error.message
+        })
+
+
+        builder.addCase(fetchSingleProduct.pending,(state)=>{
+            state.loading =  true
+        })
+        builder.addCase(fetchSingleProduct.fulfilled,(state,action)=>{
+            state.loading =  false
+            state.singleProductItem = action.payload
+        })
+        builder.addCase(fetchSingleProduct.rejected,(state,action)=>{
+            state.loading =  false
+            state.error = action.error.message
         })
     }
 })
@@ -37,6 +61,14 @@ const productSlice=createSlice({
 
 export const productData = (state)=>{
     return state.products.productItems;
+}
+
+export const productLoading=(state)=>{
+    return state.products.loading
+}
+
+export const singleProductData=(state)=>{
+    return state.products.singleProductItem;
 }
 
 export default productSlice.reducer
