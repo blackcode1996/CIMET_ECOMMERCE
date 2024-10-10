@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Formik } from 'formik'
-import React from 'react'
 import { validateEmail } from '../utils/constants';
+import { saveDataInFireBase } from '../utils/firebase';
+import { toast } from 'react-toastify';
 
 const ContactForm = () => {
   return (
@@ -14,8 +15,17 @@ const ContactForm = () => {
       }
       return errors
   }}
-    onSubmit={(values, {}) =>{
+    onSubmit={async(values, {resetForm, setSubmitting}) =>{
       console.log("VALIES", values)
+      const {success, message} = await saveDataInFireBase(values)
+      if (success) {
+        toast.success(message);
+        resetForm();
+      } else {
+        toast.error(message);
+      }
+      setSubmitting(false);
+      resetForm()
     }}
   >
     {({
@@ -26,7 +36,6 @@ const ContactForm = () => {
       handleBlur,
       handleSubmit,
       isSubmitting,
-      resetForm
     }) => (
       <div className='flex justify-center mt-5'>
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">

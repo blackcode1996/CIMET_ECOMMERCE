@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
 import { app } from "../utils/firebase"
 import { useEffect, useState } from "react"
