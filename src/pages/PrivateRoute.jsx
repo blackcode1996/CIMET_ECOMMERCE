@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import token from "../utils/token";
 
 const PrivateRoute = ({ children }) => {
-
-  //  const auth = localStorage.getItem('token') || null
     
-  //  if(auth){
-  //   setIsAuthenticated(true)
-  //  }
-    
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('token') ? true : false);
+  const [isAuthenticated, setIsAuthenticated] = useState(token());
 
-  useEffect(()=>{
-      console.log(localStorage.getItem('token'))
-  }, [])
+  console.log(isAuthenticated)
 
   return isAuthenticated ? children : <Navigate to="/auth" />;
 };

@@ -10,8 +10,6 @@ import { app } from "../utils/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import SignUpForm from "../components/SignUpForm";
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from "react-redux";
-import { setAuth } from "../redux/slice/authSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
@@ -29,6 +27,7 @@ const Authentication = () => {
     onAuthStateChanged(auth, user => {
       if (user) {
         setShowLogIn(true)
+        console.log("LOGGED IN")
       }
       else {
         console.log("SIGNED OUT")
@@ -37,7 +36,6 @@ const Authentication = () => {
     })
   }, [])
 
-  const dispatch = useDispatch()
 
   const [signInInfo, setSignInInfo] = useState({
     email: "",
