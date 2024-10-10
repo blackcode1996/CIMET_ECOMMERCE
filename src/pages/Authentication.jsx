@@ -27,10 +27,8 @@ const Authentication = () => {
     onAuthStateChanged(auth, user => {
       if (user) {
         setShowLogIn(true)
-        console.log("LOGGED IN")
       }
       else {
-        console.log("SIGNED OUT")
         setShowLogIn(true)
       }
     })

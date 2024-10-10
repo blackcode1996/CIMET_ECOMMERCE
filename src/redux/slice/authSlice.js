@@ -6,12 +6,19 @@ const authSlice = createSlice({
     initialState :{
         isAuth :!!localStorage.getItem('token'),
         loading: false,
+        userData: {
+          name: '',
+          email:''
+        }
 
     },
     reducers :{
         setAuth: function(state) { 
             state.isAuth = true;
           },
+        setUserData: function(state, action){
+           state.userData
+        },
       logOut: function(state, action){
         state.isAuth = false
         localStorage.removeItem('token')
