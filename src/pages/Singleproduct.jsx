@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Rating from "../components/Rating";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,20 +9,27 @@ import {
 } from "../redux/slice/productSlice";
 import productDto from "../dto/productDto";
 import SingleProductSkeleton from "../components/skeleton/SingleProductSkeleton";
+import AddtoCartButton from "../components/AddtoCartButton";
+import { cartData } from "../redux/slice/cartSlice";
 
 const SingleProduct = () => {
     const dispatch = useDispatch();
     const productData = useSelector(singleProductData);
     const isLoading = useSelector(productLoading); 
     const { id } = useParams();
-  
+    const cart=useSelector(cartData)
+
+    const filterCart=cart.filter((ele)=>ele.productId===Number(id))
+   const quantity=filterCart.length==0?0:filterCart[0].quantity
+    
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
-  
+    
     useEffect(() => {
       dispatch(fetchSingleProduct(id));
     }, [dispatch, id]);
+    
   
     const product = productDto(productData);
   
@@ -89,7 +96,7 @@ const SingleProduct = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 <div className="flex items-center justify-center w-full">
-                  <button className="group py-4 px-6 border border-gray-400 rounded-l-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
+                  {/* <button className="group py-4 px-6 border border-gray-400 rounded-l-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                       <path
                         d="M16.5 11H5.5"
@@ -103,8 +110,8 @@ const SingleProduct = () => {
                     type="text"
                     className="font-semibold text-gray-900 text-lg py-[13px] px-6 w-full lg:max-w-[118px] border-y border-gray-400 bg-transparent placeholder:text-gray-900 text-center hover:bg-gray-50 focus-within:bg-gray-50 outline-0"
                     placeholder="1"
-                  />
-                  <button className="group py-4 px-6 border border-gray-400 rounded-r-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
+                  /> */}
+                  {/* <button className="group py-4 px-6 border border-gray-400 rounded-r-full shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-300 hover:bg-gray-50">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                       <path
                         d="M11 5.5V16.5M16.5 11H5.5"
@@ -113,11 +120,22 @@ const SingleProduct = () => {
                         strokeLinecap="round"
                       />
                     </svg>
-                  </button>
+                  </button> */}
                 </div>
-                <button className="group py-4 px-5 rounded-full bg-indigo-50 text-indigo-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-100 hover:shadow-indigo-200 border ">
+                {/* <button className="group py-4 px-5 rounded-full bg-indigo-50 text-indigo-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-100 hover:shadow-indigo-200 border ">
                   Add to cart
-                </button>
+                </button> */}
+                <AddtoCartButton quantity={quantity} data={{
+
+productId:product.productId,
+productImage:product.productImage,
+productPrice:product.productPrice,
+productDiscountPercent:product.productDiscountPercent,
+productTitle:product.productTitle,
+productRating:product.productRating,
+productActualPrice:product.productActualPrice,
+}
+}/>
               </div>
               <div className="flex items-center gap-3">
                 <button className="group transition-all duration-500 p-4 rounded-full bg-indigo-50 hover:bg-neutural hover:shadow-sm hover:shadow-secondary">
