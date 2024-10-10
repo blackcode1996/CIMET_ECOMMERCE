@@ -10,6 +10,7 @@ import Profile from "../pages/Profile";
 import Authentication from "../pages/Authentication";
 import PrivateRoute from "../pages/PrivateRoute";
 import UpdatePassword from "../components/UpdatePassword";
+import ContactForm from "../pages/ContactForm";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact-us",
-        element: <Authentication />,
+        element: <ContactForm />,
       },
     ],
   },

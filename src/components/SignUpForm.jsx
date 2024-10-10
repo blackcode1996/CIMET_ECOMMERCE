@@ -15,12 +15,6 @@ return(
       if (emailValidation.error) {
         errors.email = emailValidation.message;
       }
-
-      // const userNameValidation = validateUserName(values.name);
-      // if (userNameValidation.error) {
-      //   errors.name = userNameValidation.message;
-      // }
-
       const passwordValidation = validatePassword(values.password);
       if (passwordValidation.error) {
         errors.password = passwordValidation.message;

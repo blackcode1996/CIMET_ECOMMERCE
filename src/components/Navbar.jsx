@@ -61,7 +61,7 @@ const Navbar = () => {
           <Link to="/products" className="hover:text-red-500">Product</Link>
             <Link to="/blog?page=1" className="hover:text-red-500">Blog</Link>
             <Link to="/cart" className="hover:text-red-500">Cart(0)</Link>
-            <p className="hover:text-red-500">Contact</p>
+            <Link to="/contact-us" className="hover:text-red-500">Contact</Link>
           </div>
           <div>
             <select className="bg-primary text-white hover:text-red-500 p-1 mt-[-1px]">
@@ -99,7 +99,7 @@ const Navbar = () => {
             <Link to="/cart" className="py-2 hover:text-red-500" onClick={toggleMenu}>
               Cart(0)
             </Link>
-            <Link to="/" className="py-2 hover:text-red-500" onClick={toggleMenu}>
+            <Link to="/contact-us" className="py-2 hover:text-red-500" onClick={toggleMenu}>
               Contact
             </Link>
           </div>
