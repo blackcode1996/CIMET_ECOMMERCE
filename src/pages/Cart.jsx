@@ -76,7 +76,7 @@ const Cart = () => {
 
                 <div className="flex gap-5 ">
                   <div>
-                    {/* <h3 className="font-semibold">{trimText(item.productTitle, 5)}</h3> */}
+                    <h3 className="font-semibold">{item.productTitle}</h3>
                     <p className="text-gray-500">Product Detail</p>
                     <div className="flex  gap-2 align-middle">
                       <p className="text-red-500 line-through">
