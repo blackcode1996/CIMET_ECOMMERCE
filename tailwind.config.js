@@ -38,20 +38,18 @@ export default {
     },
     extend: {
       keyframes: {
-        waving: {
-          "0%": {
-            transform: "translateX(-50%) translateY(0) skew(0, -10deg)",
-          },
-          "50%": {
-            transform: "translateX(-40%) translateY(-10px) skew(0, -8deg)",
-          },
-          "100%": {
-            transform: "translateX(-30%) translateY(0) skew(10deg, 0)",
-          },
+        wave: {
+          '0%': { d: 'path("M 0,100 C 150,200 350,0 500,100 L 500,00 L 0,0")' },
+          '50%': { d: 'path("M 0,90 C 130,210 370,10 500,90 L 500,00 L 0,0")' },
+          '100%': { d: 'path("M 0,100 C 150,200 350,0 500,100 L 500,00 L 0,0")' }
+        },
+       
+        clipPath: {
+          "ellipse-custom": "ellipse(100% 15% at -15% 100%)",
         },
       },
       animation: {
-        waving: "waving 6s ease-in-out infinite",
+        wave: 'wave 5s ease-in-out infinite',
       },
     },
   },

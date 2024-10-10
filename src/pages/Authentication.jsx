@@ -29,7 +29,6 @@ const Authentication = () => {
         setShowLogIn(true)
       }
       else {
-        console.log("SIGNED OUT")
         setShowLogIn(true)
       }
     })
@@ -75,7 +74,6 @@ const Authentication = () => {
               displayName: name,
             })
               .then(() => {
-                console.log("DisplayName set:", name);
                 dispatch(setAuth());
                 localStorage.setItem('user', JSON.stringify({name, email}));
               })
