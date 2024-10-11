@@ -1,5 +1,8 @@
 #postman collection 
 https://documenter.getpostman.com/view/24009787/2sAXxS6WVM
+#postman base url
+https://ecommerce-api-8ga2.onrender.com/api
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
