@@ -4,15 +4,18 @@ import { getAuth, signOut } from 'firebase/auth'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { app } from '../utils/firebase'
+import { removeFromCart, resetCart } from '../redux/slice/cartSlice'
+import { useDispatch } from 'react-redux'
 const auth = getAuth(app)
 
 const UserProfileModal = ({ isLoggedIn, username, closeModal ,setIsModalOpen}) => {
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+
   
   const logoutHandler=()=>{
     signOut(auth)
-    localStorage.removeItem('token')
-    localStorage.removeItem("cart")
+    dispatch(resetCart())
     closeModal()
     setIsModalOpen(false)
     navigate('/')

@@ -9,10 +9,11 @@ const AddtoCartButton = ({quantity,data}) => {
     const isAuth=token()
     
     const handleCart=()=>{
+      console.log(data,"data")
       if (!isAuth) {
         toast.error("Please log in to add items to the cart!");
       } else {
-        dispatch(addToCart(data));
+        // dispatch(addToCart(data));
       }
       }
     const incrementQuantity=()=>{

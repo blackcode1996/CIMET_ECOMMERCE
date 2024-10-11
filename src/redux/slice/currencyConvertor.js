@@ -6,12 +6,12 @@ export const fetchCurrencyData=createAsyncThunk(
     'currencyConvertor/fetchCurrencyData',
     async(currency)=>{
         const res=await axios(`https://v6.exchangerate-api.com/v6/7f239aeb5d43c5b7ae4a7e43/latest/USD`)
-        const conversionRateObj=res.data.conversion_rates
+        let conversionRateObj=res.data.conversion_rates
+        console.log(conversionRateObj,"currencyConvertor")
         for(let j in conversionRateObj){
             if(j===currency){
                 const conversionRate = conversionRateObj[j];
-                return conversionRate
-            
+                return {conversionRate:conversionRate,currencyObj:conversionRateObj}
             }
         }
     }
@@ -21,6 +21,7 @@ const currencySlice=createSlice({
     name:"currencyConvertor",
     initialState:{
     conversionRate:1,
+    currencyObj:{},
     loading:false,
     error:null
     },
@@ -30,7 +31,9 @@ const currencySlice=createSlice({
         })
         builder.addCase(fetchCurrencyData.fulfilled, (state, action) => {
           state.loading = false
-          state.conversionRate = action.payload
+          console.log(action.payload,"payload")
+          state.conversionRate = action.payload.conversionRate
+          state.currencyObj=action.payload.currencyObj
         })
         builder.addCase(fetchCurrencyData.rejected, (state, action) => {
           state.loading = false
@@ -41,6 +44,9 @@ const currencySlice=createSlice({
 
 export const currencyConvertedData=(state)=>{
     return state.currencyConvertor.conversionRate
+}
+export const currencyData=(state)=>{
+    return state.currencyConvertor.currencyObj
 }
 
 export default currencySlice.reducer

@@ -178,10 +178,10 @@ const Navbar = () => {
               onChange={currencyConvertorHandler}
             >
               <option value="USD" className="bg-primary text-sm">
-                USD
+                US Dollar
               </option>
               <option value="INR" className="bg-primary text-sm">
-                INR
+                Indian Rupee
               </option>
               <option value="AUD" className="bg-primary text-sm">
                 AUD

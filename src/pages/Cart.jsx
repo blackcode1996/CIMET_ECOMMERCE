@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { trimText } from "../utils/common";
 import { useDispatch, useSelector } from "react-redux";
-import {  cartData, removeFromCart, updateCart } from "../redux/slice/cartSlice";
+import {  cartData, getUserCartData, removeFromCart, updateCart } from "../redux/slice/cartSlice";
 
 import { currencyConvertedData } from "../redux/slice/currencyConvertor";
 import { cartDto } from "../dto/cartDto";
+import { newCartDto } from "../dto/newCartDto";
 
 const Cart = () => {
   const dispatch=useDispatch()
   const conversionRate = useSelector(currencyConvertedData);
   
-  
-
   const cart=useSelector(cartData)
-  // const totalAmount = (cart.reduce((total, item) => total + Number(item.productPrice), 0)*conversionRate).toFixed(1);
-
-  // const discountAmount = (cart.reduce(
-  //   (total, item) => total + (Number(item.productActualPrice) - Number(item.productPrice)),
-  //   0
-  // )*conversionRate).toFixed(1);
+  console.log(cart,"cart")
  
-  const cartDat = cartDto(cart);
+  // const cartDat = cartDto(cart);
+  const cartDat=newCartDto(cart)
   
   const incrementQuantity=({quantity,productId})=>{
     const updatedQuantity=quantity+1
@@ -38,6 +33,10 @@ const Cart = () => {
   useEffect(()=>{
     window.scrollTo(0,0);
   },[])
+
+  useEffect(()=>{
+    dispatch(getUserCartData)
+  },[dispatch])
 
 
   return (
