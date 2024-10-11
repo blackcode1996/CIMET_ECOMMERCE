@@ -2,15 +2,30 @@
 import { Formik } from "formik";
 import { validateEmail, validatePassword } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
-import { createUserByEmail } from "../utils/firebase";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp, signUpUser } from "../redux/slice/authSlice";
+import { useEffect } from "react";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const userData = useSelector(signUpUser)
+
+  useEffect(() => {
+    console.log("USERDATA", userData)
+  }, [userData])
+
+  const data = () =>{
+      
+  }
 
   return (
     <Formik
-      initialValues={{ email: "", password: "", name: "" }}
+      initialValues={{
+        firstname: '', lastname: '', email: "", password: "",
+        gender: '', role: ''
+      }}
       validate={(values) => {
         const errors = {};
 
@@ -25,18 +40,18 @@ const SignUpForm = () => {
         }
         return errors;
       }}
-      onSubmit={async (values) => {
-        const { success, message } = await createUserByEmail(
-          values.name,
-          values.email,
-          values.password
-        );
-        if (success) {
-          toast.success(message);
-          navigate("/login");
-        } else {
-          toast.error(message);
-        }
+      onSubmit={(values, {setSubmitting}) => {
+        dispatch(signUp(values))
+        .unwrap()
+        .then((values) => {
+          setSubmitting(false);
+          console.log("SUCCESS", values)
+           toast.success("Success")
+           navigate('/login')
+        })
+        .catch(() => {
+          setSubmitting(false);
+        });
       }}
     >
       {({
@@ -49,6 +64,8 @@ const SignUpForm = () => {
         isSubmitting,
         resetForm,
       }) => (
+        <>
+        <ToastContainer />
         <form
           onSubmit={handleSubmit}
           className="bg-white p-6 sm:p-8 rounded-lg shadow-md max-w-sm sm:max-w-md md:max-w-lg lg:max-w-l mx-auto my-8 sm:my-16"
@@ -58,21 +75,37 @@ const SignUpForm = () => {
           </h2>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Name</label>
+            <label className="block text-gray-700 font-medium mb-2">First Name</label>
             <input
               type="text"
               name="name"
-              value={values.name}
+              value={values.firstname}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full p-1 sm:p-2 border ${
-                touched.name && errors.name
+              className={`w-full p-1 sm:p-2 border ${touched.firstname && errors.firstname
                   ? "border-red-500"
                   : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
             />
-            {touched.name && errors.name ? (
-              <div className="text-red-500 text-sm mt-1">{errors.name}</div>
+            {touched.firstname && errors.firstname ? (
+              <div className="text-red-500 text-sm mt-1">{errors.firstname}</div>
+            ) : null}
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Last Name</label>
+            <input
+              type="text"
+              name="name"
+              value={values.lastname}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full p-1 sm:p-2 border ${touched.lastname && errors.lastname
+                  ? "border-red-500"
+                  : "border-gray-300"
+                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            />
+            {touched.lastname && errors.lastname ? (
+              <div className="text-red-500 text-sm mt-1">{errors.lastname}</div>
             ) : null}
           </div>
 
@@ -86,14 +119,31 @@ const SignUpForm = () => {
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full p-2 sm:p-2 border ${
-                touched.email && errors.email
+              className={`w-full p-2 sm:p-2 border ${touched.email && errors.email
                   ? "border-red-500"
                   : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
             />
             {touched.email && errors.email ? (
               <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+            ) : null}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Gender</label>
+            <input
+              type="radio"
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full p-1 sm:p-2 border ${touched.name && errors.name
+                  ? "border-red-500"
+                  : "border-gray-300"
+                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            />
+            {touched.name && errors.name ? (
+              <div className="text-red-500 text-sm mt-1">{errors.name}</div>
             ) : null}
           </div>
 
@@ -107,11 +157,10 @@ const SignUpForm = () => {
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full p-2 sm:p-2 border ${
-                touched.password && errors.password
+              className={`w-full p-2 sm:p-2 border ${touched.password && errors.password
                   ? "border-red-500"
                   : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
             />
             {touched.password && errors.password ? (
               <div className="text-red-500 text-sm mt-1">{errors.password}</div>
@@ -139,6 +188,7 @@ const SignUpForm = () => {
             </span>
           </div>
         </form>
+        </>
       )}
     </Formik>
   );

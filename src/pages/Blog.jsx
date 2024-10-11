@@ -10,7 +10,7 @@ const Blog = () => {
   const blog = useSelector(blogData);
   const navigate = useNavigate();
   let location = useLocation();
-
+ 
   
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8;
