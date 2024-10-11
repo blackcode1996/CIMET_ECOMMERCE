@@ -22,6 +22,7 @@ const Profile = () => {
         navigate('/login')
       }
     })
+    window.scrollTo(0,0);
   }, [])
 
   return (

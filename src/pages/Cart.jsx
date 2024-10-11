@@ -35,9 +35,13 @@ const Cart = () => {
     dispatch(removeFromCart({id:productId}))
   }
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
+
 
   return (
-    <div className="bg-gray-300">
+    <div className="pb-5 pt-5">
       <div className="p-4 max-w-[80%] mx-auto flex gap-5  justify-center">
         <div className="w-[50%]">
           {/* Delivery Information */}
@@ -67,10 +71,10 @@ const Cart = () => {
                 className={`flex items-center justify-center w-6 h-6 rounded-2xl ${
                   item.quantity === 1 ? 'bg-gray-300 text-gray-500' : 'bg-primary text-neutral'
               } transition duration-200`}
-              disabled={item.productQuantity === 1}  onClick={()=>decrementQuantity({quantity:item.productQuantity,productId:item.productId})}>-</button>
+              disabled={item.productQuantity === 1}  onClick={()=>decrementQuantity({quantity:item.productQuantity,productId:item.productId})}> <span className='mt-[1px]'>-</span></button>
                     <span className="mx-2">{item.productQuantity}</span>
                     <button className={`flex items-center justify-center w-6 h-6  rounded-2xl bg-primary text-neutral transition duration-200`}
-               onClick={()=>incrementQuantity({quantity:item.productQuantity,productId:item.productId})}>+</button>
+               onClick={()=>incrementQuantity({quantity:item.productQuantity,productId:item.productId})}> <span className='mt-[3px]'>+</span></button>
                   </div>
                 </div>
 
@@ -126,7 +130,7 @@ const Cart = () => {
           <hr className="mb-2" />
           <div className="flex justify-between font-bold text-lg">
             <p>Total Amount</p>
-            <p>₹{Number(cartDat[1].totalAmount)-Number(cartDat[1].discountAmount)}</p>
+            <p>₹{(Number(cartDat[1].totalAmount)-Number(cartDat[1].discountAmount)).toFixed(1)}</p>
           </div>
           <hr className="mt-2 mb-2" />
           <p className="text-green-600 mt-2">

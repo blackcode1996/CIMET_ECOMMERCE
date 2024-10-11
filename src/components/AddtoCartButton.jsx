@@ -2,15 +2,19 @@ import React from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart, updateCart } from '../redux/slice/cartSlice'
+import token from '../utils/token'
+import { toast } from "react-toastify"
 
 const AddtoCartButton = ({quantity,data}) => {
     const dispatch=useDispatch()
-
-    console.log(quantity,"quantity",data)
-
-
+    const isAuth=token()
+    
     const handleCart=()=>{
-        dispatch(addToCart(data))
+      if (!isAuth) {
+        toast.error("Please log in to add items to the cart!");
+      } else {
+        dispatch(addToCart(data));
+      }
       }
     const incrementQuantity=()=>{
         const updatedQuantity=quantity+1
@@ -51,7 +55,7 @@ const AddtoCartButton = ({quantity,data}) => {
             <button
                 onClick={decrementQuantity}
                 className={`flex items-center justify-center w-8 h-8 rounded-md ${
-                  quantity === 1 ? 'bg-gray-300 text-gray-500' : 'bg-secondary text-primary'
+                  quantity === 1 ? 'bg-gray-300 text-gray-500' : 'bg-secondary text-neutral'
               } transition duration-200`}
               disabled={quantity === 1} 
             >
@@ -63,16 +67,17 @@ const AddtoCartButton = ({quantity,data}) => {
 
             <button
                 onClick={incrementQuantity}
-              className="flex items-center justify-center w-8 h-8 rounded-md bg-secondary text-primary  transition duration-200"
+              className="flex items-center justify-center w-8 h-8 rounded-md bg-secondary text-neutral transition duration-200 "
             >
-              +
+              <span className='mt-[2px]'>+</span>
+              
             </button>
 
             <button
                 onClick={deleteProductFromCart}
-              className="flex items-center justify-center w-8 h-8 rounded-md text-secondary hover:bg-red-600 transition duration-200"
+              className="flex items-center justify-center w-8 h-8 rounded-md text-secondary hover:bg-red-600  transition duration-200"
             >
-             <FaTrash />
+             <FaTrash className='hover:text-neutral' />
             </button>
           </div>
         )}

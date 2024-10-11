@@ -23,6 +23,7 @@ const UpdatePassword = () => {
                 navigate('/login')
             }
         })
+        window.scrollTo(0,0);
     }, [])
 
 
