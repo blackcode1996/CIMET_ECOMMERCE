@@ -1,16 +1,18 @@
 export function validateEmail(email) {
     let error = false;
-    let message ;
+    let message = "";
+
     if (!email) {
-        message = "inValid Email Address"
-        error = true
-    } else if (!/^[A-Z0-9._%+-]+@[a-z]+\.[a-z]+\.[a-z]{2,4}$/i.test(email)) {
-        message = "Invalid Email Address"
-        error = true
+        message = "Email address is required";
+        error = true;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+        message = "Invalid email address format";
+        error = true;
     }
-    return {error, message}
-    // return error
+
+    return { error, message };
 }
+
 
 export function validateUserName(name) {
 

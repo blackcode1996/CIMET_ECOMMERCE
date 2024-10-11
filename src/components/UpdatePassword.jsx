@@ -1,7 +1,7 @@
 import { EmailAuthProvider, getAuth, onAuthStateChanged, reauthenticateWithCredential, updatePassword } from 'firebase/auth'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { app } from '../utils/firebase'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Formik } from 'formik'
 import { validatePassword } from '../utils/constants'
 import { toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -20,9 +20,10 @@ const UpdatePassword = () => {
             }
             else {
                 localStorage.removeItem('token')
-                navigate('/auth')
+                navigate('/login')
             }
         })
+        window.scrollTo(0,0);
     }, [])
 
 
@@ -74,11 +75,9 @@ const UpdatePassword = () => {
                         errors.confirmPassword = "Password Not Matched"
                     }
                     return errors
-
-
                 }}
 
-                onSubmit={(values, { }) => {
+                onSubmit={(values) => {
                     handlePasswordUpdate(values)
                 }}
             >

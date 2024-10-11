@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleBlog, singleBlogData } from "../redux/slice/blogSlice";
 import { useParams } from "react-router-dom";

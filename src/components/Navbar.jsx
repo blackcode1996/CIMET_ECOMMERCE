@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,17 +9,17 @@ import ToolTip from "./ToolTip";
 import token from "../utils/token";
 
 const Navbar = () => {
+  const cart = useSelector(cartData);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("John Doe");
+  // const [cartLength,setCartLength]=useState(cart.length ? cart.length : 0);
+  const [cartLength, setCartLength] = useState(cart.length);
+  const modalRef = useRef();
 
-  const isAuth=token()
-  console.log(isAuth,"isAuth");
-  
-
-  const cart = useSelector(cartData);
+  const isAuth = token();
 
   const dispatch = useDispatch();
   const toggleMenu = () => {
@@ -44,6 +44,30 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    setCartLength(cart.length);
+  }, [cart.length]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsModalOpen(false);
+      }
+    };
+
+    if (isModalOpen) {
+      window.addEventListener("mousedown", handleClickOutside);
+    } else {
+      window.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isModalOpen]);
+
+  console.log({ cartLength });
 
   return (
     <div
@@ -74,14 +98,16 @@ const Navbar = () => {
               Blog
             </Link>
 
-              {cart.length > 0 ? (
+              {cartLength > 0 ? (
             <Link to="/cart" className="hover:text-red-500">
-                Cart({cart.length})
+                Cart({cartLength})
             </Link>
               ) : (
                 <ToolTip mainText={"Cart"} textTooBeShown={"Your Cart is Empty"} bgColor={isScrolled?"primary":"neutral"}/>
               )}
-            <p className="hover:text-red-500 cursor-pointer">Contact</p>
+            <Link to="/contact-us" className="hover:text-red-500">
+              Contact
+            </Link>
           </div>
           <div>
             <select
@@ -166,12 +192,17 @@ const Navbar = () => {
         </div>
       )}
 
-      {isModalOpen && ( 
+      {isModalOpen && (
+        <div ref={modalRef}>
         <UserProfileModal
           isLoggedIn={isAuth}
           username={username}
-          closeModal={() => {setIsLoggedIn(false),setIsModalOpen(false)}}
+          setIsModalOpen={setIsModalOpen}
+          closeModal={() => {
+            setIsLoggedIn(false)
+          }}
         />
+        </div>
       )}
     </div>
   );

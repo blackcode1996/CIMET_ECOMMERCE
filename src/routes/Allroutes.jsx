@@ -7,9 +7,11 @@ import Blog from "../pages/Blog";
 import Singleblog from "../pages/Singleblog";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
-import Authentication from "../pages/Authentication";
 import PrivateRoute from "../pages/PrivateRoute";
 import UpdatePassword from "../components/UpdatePassword";
+import ContactForm from "../pages/ContactForm";
+import SignUpForm from "../components/SignUpForm";
+import LoginForm from "../components/LogIn";
 
 const router = createBrowserRouter([
   {
@@ -56,12 +58,16 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: "/auth",
-        element: <Authentication />,
+        path: "/Signup",
+        element: <SignUpForm/>,
+      },
+      {
+        path: "/login",
+        element: <LoginForm/>,
       },
       {
         path: "/contact-us",
-        element: <Authentication />,
+        element: <ContactForm />,
       },
     ],
   },
