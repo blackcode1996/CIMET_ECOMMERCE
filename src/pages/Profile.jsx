@@ -19,7 +19,7 @@ const Profile = () => {
       }
       else {
         localStorage.removeItem('token')
-        navigate('/login')
+        navigate('/')
       }
     })
     window.scrollTo(0,0);

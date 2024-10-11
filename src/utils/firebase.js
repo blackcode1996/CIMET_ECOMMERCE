@@ -47,7 +47,6 @@ const firebaseConfig = {
     
     try{
      const docRef = await addDoc(collection(db, "contacts"), formData)
-     console.log("Document written with ID: ", docRef.id);
        return{success: true, message:'Form Submitted Successfully'}
     }
     catch(err){

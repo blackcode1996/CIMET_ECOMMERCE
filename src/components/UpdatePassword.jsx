@@ -44,11 +44,9 @@ const UpdatePassword = () => {
                         });
                 })
                 .catch((error) => {
-                    console.log(`Error updating password: ${error.message}`)
                     toast.error(`Error updating password: ${error.message}`);
                 });
         } else {
-            console.log("No user is signed in.");
             toast.error("No user is signed in.")
         }
     };

@@ -16,7 +16,6 @@ const ContactForm = () => {
       return errors
   }}
     onSubmit={async(values, {resetForm, setSubmitting}) =>{
-      console.log("VALIES", values)
       const {success, message} = await saveDataInFireBase(values)
       if (success) {
         toast.success(message);
