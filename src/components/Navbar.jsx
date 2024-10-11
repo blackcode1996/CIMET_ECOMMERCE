@@ -77,7 +77,9 @@ const Navbar = () => {
               ) : (
                 <ToolTip mainText={"Cart"} textTooBeShown={"Your Cart is Empty"} />
               )}
-            <p className="hover:text-red-500">Contact Us</p>
+            <Link to="/contact-us" className="hover:text-red-500">
+              Contact
+            </Link>
           </div>
           <div>
             <select

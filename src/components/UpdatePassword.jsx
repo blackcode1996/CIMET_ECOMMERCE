@@ -74,8 +74,6 @@ const UpdatePassword = () => {
                         errors.confirmPassword = "Password Not Matched"
                     }
                     return errors
-
-
                 }}
 
                 onSubmit={(values) => {

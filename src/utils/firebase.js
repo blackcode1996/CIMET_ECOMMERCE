@@ -1,5 +1,7 @@
 import {initializeApp} from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBnLnMaI4VAfIFDXT8XMl37NCh0J5dqIvE",
@@ -15,6 +17,7 @@ const firebaseConfig = {
   export const app = initializeApp(firebaseConfig);
    
   const auth = getAuth(app)
+  const db = getFirestore(app)
 
   export async function createUserByEmail(name, email, password) {
     try {
@@ -36,5 +39,19 @@ const firebaseConfig = {
       return { success: true, message: "Log In Successful" };
     } catch (err) {
       return { success: false, message: err.message };
+    }
+  }
+
+
+  export async function saveDataInFireBase(formData) {
+    
+    try{
+     const docRef = await addDoc(collection(db, "contacts"), formData)
+     console.log("Document written with ID: ", docRef.id);
+       return{success: true, message:'Form Submitted Successfully'}
+    }
+    catch(err){
+      console.error("Error adding document: ", err);
+      return { success: false, message: "Error submitting form" };
     }
   }
