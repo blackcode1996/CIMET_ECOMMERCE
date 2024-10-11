@@ -123,7 +123,7 @@ const SignUpForm = () => {
             type="submit"
             className="w-full bg-primary text-neutral font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
           >
-            {isSubmitting ? "Submitting" : "Submit"}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
 
           <div className="my-2 flex w-full justify-center">

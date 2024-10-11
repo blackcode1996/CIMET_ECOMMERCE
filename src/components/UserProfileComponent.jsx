@@ -2,11 +2,13 @@
 
 import { getAuth, signOut } from 'firebase/auth'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { app } from '../utils/firebase'
 const auth = getAuth(app)
 
 const UserProfileModal = ({ isLoggedIn, username, closeModal ,setIsModalOpen}) => {
+  const navigate=useNavigate()
+  
   const logoutHandler=()=>{
     signOut(auth)
     localStorage.removeItem('token')

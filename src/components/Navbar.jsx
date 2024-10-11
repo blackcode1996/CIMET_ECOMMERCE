@@ -67,7 +67,6 @@ const Navbar = () => {
     };
   }, [isModalOpen]);
 
-  console.log({ cartLength });
 
   return (
     <div

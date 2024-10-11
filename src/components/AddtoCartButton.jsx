@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart, updateCart } from '../redux/slice/cartSlice'

@@ -16,7 +16,6 @@ export const cartDto=(data)=>{
       
     }));
     const totalAmount = (cartArray.reduce((total, item) => total + Number((item.productPrice)*item.productQuantity), 0)*conversionRate).toFixed(1);
-  console.log(totalAmount,"totalAmount in dto")
     const discountAmount = (cartArray.reduce(
       (total, item) => total + (Number((item.productActualPrice)*(item.productQuantity)) - Number((item.productPrice)*(item.productQuantity))),
       0
