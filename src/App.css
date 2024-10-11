@@ -2,13 +2,44 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 .truncate-2-lines {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-line-clamp: 2; 
+  -webkit-line-clamp: 2;
   max-height: 3em;
   line-height: 1.5em;
+  background-color: gar;
 }
+
+input[type="range"] {
+  -webkit-appearance: none;
+   appearance: none;
+   background: transparent;
+   cursor: pointer;
+   margin-top: 5px;
+}
+
+input[type="range"]:focus {
+ outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #020617;
+  border-radius: 0.5rem;
+  height: 0.5rem;  
+  margin-top: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none; 
+  appearance: none;
+  margin-top: -12px; 
+  background-color: #f56565;
+  height: 2rem;
+  width: 1rem;
+  border-radius: 10px;
+}
+

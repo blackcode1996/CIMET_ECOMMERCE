@@ -13,29 +13,28 @@ import AddtoCartButton from "../components/AddtoCartButton";
 import { cartData } from "../redux/slice/cartSlice";
 
 const SingleProduct = () => {
-    const dispatch = useDispatch();
-    const productData = useSelector(singleProductData);
-    const isLoading = useSelector(productLoading); 
-    const { id } = useParams();
-    const cart=useSelector(cartData)
+  const dispatch = useDispatch();
+  const productData = useSelector(singleProductData);
+  const isLoading = useSelector(productLoading);
+  const { id } = useParams();
+  const cart = useSelector(cartData);
 
-    const filterCart=cart.filter((ele)=>ele.productId===Number(id))
-   const quantity=filterCart.length==0?0:filterCart[0].quantity
-    
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
-    
-    useEffect(() => {
-      dispatch(fetchSingleProduct(id));
-    }, [dispatch, id]);
-    
-  
-    const product = productDto(productData);
-  
-    if (isLoading) {
-      return <SingleProductSkeleton />;
-    }
+  const filterCart = cart.filter((ele) => ele.productId === Number(id));
+  const quantity = filterCart.length == 0 ? 0 : filterCart[0].quantity;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchSingleProduct(id));
+  }, [dispatch, id]);
+
+  const product = productDto(productData);
+
+  if (isLoading) {
+    return <SingleProductSkeleton />;
+  }
 
   return (
     <section className="py-10 lg:py-24 relative">
@@ -125,17 +124,18 @@ const SingleProduct = () => {
                 {/* <button className="group py-4 px-5 rounded-full bg-indigo-50 text-indigo-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-100 hover:shadow-indigo-200 border ">
                   Add to cart
                 </button> */}
-                <AddtoCartButton quantity={quantity} data={{
-
-productId:product.productId,
-productImage:product.productImage,
-productPrice:product.productPrice,
-productDiscountPercent:product.productDiscountPercent,
-productTitle:product.productTitle,
-productRating:product.productRating,
-productActualPrice:product.productActualPrice,
-}
-}/>
+                <AddtoCartButton
+                  quantity={quantity}
+                  data={{
+                    productId: product.productId,
+                    productImage: product.productImage,
+                    productPrice: product.productPrice,
+                    productDiscountPercent: product.productDiscountPercent,
+                    productTitle: product.productTitle,
+                    productRating: product.productRating,
+                    productActualPrice: product.productActualPrice,
+                  }}
+                />
               </div>
               <div className="flex items-center gap-3">
                 <button className="group transition-all duration-500 p-4 rounded-full bg-indigo-50 hover:bg-neutural hover:shadow-sm hover:shadow-secondary">
