@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaRegUserCircle, FaTimes } from "react-icons/fa";
@@ -166,6 +167,7 @@ const Navbar = () => {
           isLoggedIn={isLoggedIn}
           username={username}
           closeModal={() => setIsLoggedIn(false)}
+
         />
       )}
     </div>
