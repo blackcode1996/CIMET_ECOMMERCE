@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import mobileMockup from "../assests/mobile.png";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
